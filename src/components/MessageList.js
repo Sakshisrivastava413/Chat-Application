@@ -9,9 +9,9 @@ export default class MessageList extends Component {
         <div className="message-list">
         {this.props.messages.map((message, index) => {
           return (
-            <div key={index}>
-              <div>{message.senderId}</div>
-              <div>{message.text}</div>
+            <div key={index} className="message">
+              <div className="message-username">{message.senderId}</div>
+              <div className="message-text">{message.text}</div>
             </div>
           )
         })}
