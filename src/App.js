@@ -5,7 +5,7 @@ import RoomList from "./components/RoomList";
 import SendMessageFrom from "./components/SendMessageFrom";
 import Chatkit from "@pusher/chatkit"
 import { tokenUrl, instanceLocator } from "./config.js"
-
+import "./style.css"
 
 
 class App extends Component {
