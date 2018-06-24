@@ -12,51 +12,68 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      messages: []
+      messages: [],
+      joinableRooms: [],
+      joinedRooms: []
     }
   }
-  
-  
+
+
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
-        instanceLocator,
-        userId: 'Akshat', 
-        tokenProvider: new Chatkit.TokenProvider({
-            url: tokenUrl
-        })
+      instanceLocator,
+      userId: 'Akshat',
+      tokenProvider: new Chatkit.TokenProvider({
+        url: tokenUrl
+      })
     })
-    
-    chatManager.connect()
-    .then(currentUser => {
-      this.currentUser = currentUser
-        this.currentUser.subscribeToRoom({
-            roomId: 10162507, 
-            hooks: {
-                onNewMessage: message => {
-                    // console.log('message.text: ', message.text);
-                    this.setState({
-                      messages : [...this.state.messages, message]
-                    })
-                }
-            }
-        })
-    })
-}
 
-sendMessage = (text) => {
-  this.currentUser.sendMessage({
-    text,
-    roomId : 10162507
-  })
-}
-  
+    chatManager.connect()
+      .then(currentUser => {
+        this.currentUser = currentUser
+
+        this.currentUser.getJoinableRooms()
+          .then(joinableRooms => {
+            this.setState({
+              joinableRooms,
+              joinedRooms: this.currentUser.rooms
+            })
+          })
+          .catch = (err) => {
+            console.log("error in joinable rooms", err)
+          }
+
+        this.currentUser.subscribeToRoom({
+          roomId: 10162507,
+          hooks: {
+            onNewMessage: message => {
+              // console.log('message.text: ', message.text);
+              this.setState({
+                messages: [...this.state.messages, message]
+              })
+            }
+          }
+        })
+      })
+      .catch = (err) => {
+        console.log("error in connecting", err)
+      } 
+  }
+
+  sendMessage = (text) => {
+    this.currentUser.sendMessage({
+      text,
+      roomId: 10162507
+    })
+  }
+
   render() {
     return (
-     <div>
-       <RoomList />
-       <MessageList messages={this.state.messages}/>
-       <NewRoomForm />
-       <SendMessageFrom sendMessage={this.sendMessage}/>
+      <div>
+        <RoomList rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}/>
+        <MessageList messages={this.state.messages} />
+        <SendMessageFrom sendMessage={this.sendMessage} />
+        <NewRoomForm />
       </div>
     );
   }
