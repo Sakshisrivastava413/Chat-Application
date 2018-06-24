@@ -9,6 +9,12 @@ import { tokenUrl, instanceLocator } from "./config.js"
 
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      messages: []
+    }
+  }
   
   
   componentDidMount() {
@@ -26,7 +32,10 @@ class App extends Component {
             roomId: 10162507, 
             hooks: {
                 onNewMessage: message => {
-                    console.log('message.text: ', message.text);
+                    // console.log('message.text: ', message.text);
+                    this.setState({
+                      messages : [...this.state.messages, message]
+                    })
                 }
             }
         })
@@ -37,7 +46,7 @@ class App extends Component {
     return (
      <div>
        <RoomList />
-       <MessageList />
+       <MessageList messages={this.state.messages}/>
        <NewRoomForm />
        <SendMessageFrom />
       </div>
