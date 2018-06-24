@@ -1,21 +1,32 @@
 import React, { Component } from 'react'
 
 export default class SendMessageFrom extends Component {
+
+
   constructor() {
     super()
     this.state = {
       message: ''
     }
   }
+
+
   handleChange = (e) => {
     this.setState({
       message: e.target.value
     })
   }
+
+
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.message)
+    this.props.sendMessage(this.state.message);
+    this.setState({
+      message: ''
+    })
   }
+
+
   render() {
     return (
       <div>
