@@ -12,7 +12,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      roomId: null,
+      roomId: 0,
       messages: [],
       joinableRooms: [],
       joinedRooms: []
@@ -89,6 +89,7 @@ class App extends Component {
     return (
       <div>
         <RoomList
+        roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
         />
