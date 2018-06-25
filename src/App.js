@@ -40,12 +40,12 @@ class App extends Component {
       }
   }
 
-  subscribeToRoom = () => {
+  subscribeToRoom = (roomId) => {
     this.setState({
       messages: []
     })
     this.currentUser.subscribeToRoom({
-      roomId: 10162507,
+      roomId,
       hooks: {
         onNewMessage: message => {
           this.setState({
