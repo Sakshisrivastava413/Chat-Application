@@ -105,7 +105,9 @@ class App extends Component {
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
         />
-        <MessageList messages={this.state.messages} />
+        <MessageList 
+        roomId={this.state.roomId}
+        messages={this.state.messages} />
         <SendMessageFrom
         disabled={!this.state.roomId} 
         sendMessage={this.sendMessage} 
