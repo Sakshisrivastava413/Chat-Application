@@ -29,7 +29,6 @@ export default class SendMessageFrom extends Component {
 
   render() {
     return (
-      <div>
         <form onSubmit={this.handleSubmit} className="send-message-form">
           <input
           disabled={this.props.disabled}
@@ -39,7 +38,6 @@ export default class SendMessageFrom extends Component {
             type="text"
           />
         </form>
-      </div>
     )
   }
 }

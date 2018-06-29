@@ -12,7 +12,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      roomId: 0,
+      roomId: null,
       messages: [],
       joinableRooms: [],
       joinedRooms: []
@@ -41,11 +41,12 @@ class App extends Component {
   }
 
   subscribeToRoom = (roomId) => {
+    console.log('connecting to room:', roomId);
     this.setState({
       messages: []
     })
     this.currentUser.subscribeToRoom({
-      roomId,
+      roomId: Number(roomId),
       hooks: {
         onNewMessage: message => {
           this.setState({
@@ -55,8 +56,9 @@ class App extends Component {
       }
     })
       .then(room => {
+        console.log(room)
         this.setState({
-          roomId: room
+          roomId: room.id
         })
         this.getRooms();
       })
@@ -68,6 +70,7 @@ class App extends Component {
   getRooms = () => {
     this.currentUser.getJoinableRooms()
       .then(joinableRooms => {
+        console.log(joinableRooms)
         this.setState({
           joinableRooms,
           joinedRooms: this.currentUser.rooms
@@ -99,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

@@ -25,7 +25,7 @@ handleSubmit = (e) => {
 
   render() {
     return (
-      <div>
+      <div className="new-room-form">
         <form onSubmit={this.handleSubmit}>
           <input
           value={this.state.RoomName}

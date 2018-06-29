@@ -4,17 +4,19 @@ import Message from "./Message"
 
 export default class MessageList extends Component {
 
-  componentWillUpdate() {
-    const node = ReactDOM.findDOMNode(this)
-    this.shouldScrollToBottom = node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
-  }
+  // componentWillUpdate() {
+  //   const node = ReactDOM.findDOMNode(this)
+  //   console.log("node: ", node)
+  //   this.shouldScrollToBottom = node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
+  // }
 
-  componentDidUpdate() {
-    if (this.shouldScrollToBottom) {
-      const node = ReactDOM.findDOMNode(this)
-      node.scrollTop = node.scrollHeight
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.shouldScrollToBottom) {
+  //     const node = ReactDOM.findDOMNode(this)
+  //     console.log("node2: ", node)
+  //     node.scrollTop = node.scrollHeight
+  //   }
+  // }
 
   render() {
     if (!this.props.roomId) {
@@ -31,7 +33,7 @@ export default class MessageList extends Component {
         <div className="message-list">
           {this.props.messages.map((message, index) => {
             return (
-              <div className="message" key={index}>
+              <div key={index}>
                 <Message username={message.senderId} text={message.text} />
               </div>
             )
